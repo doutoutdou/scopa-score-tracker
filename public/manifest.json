@@ -1,0 +1,19 @@
+{
+  "name": "Scopa Score Tracker",
+  "short_name": "Scopa",
+  "description": "Track your Scopa card game scores with style",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FEF3C7",
+  "theme_color": "#DC2626",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "entertainment", "lifestyle"]
+}

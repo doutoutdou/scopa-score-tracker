@@ -26,3 +26,5 @@ scopa-score-tracker.iml
 
 # Test coverage
 coverage
+.vercel
+.env*.local
