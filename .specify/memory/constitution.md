@@ -1,50 +1,130 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+==================
+Version Change: [unversioned template] → 1.0.0
+Rationale: Initial constitution ratification establishing core governance framework
+
+Modified Principles: N/A (initial version)
+Added Sections:
+  - Core Principles (3): Library-First, Test-First Development, Observability
+  - Development Standards (Versioning, Performance, Simplicity)
+  - Governance (Amendment procedures, compliance requirements)
+
+Templates Requiring Updates:
+  ✅ .specify/templates/plan-template.md - Constitution Check section references this document
+  ✅ .specify/templates/spec-template.md - User scenarios and requirements align with principles
+  ✅ .specify/templates/tasks-template.md - Task organization reflects TDD and library-first approach
+
+Follow-up TODOs: None - all placeholders resolved
+-->
+
+# Scopa Score Tracker Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Library-First
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+Every feature MUST start as a standalone library with clear boundaries and independent lifecycle.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+**Requirements**:
+- Libraries MUST be self-contained with explicit dependencies
+- Libraries MUST be independently testable without external service dependencies
+- Libraries MUST have a clear, singular purpose
+- Libraries MUST provide documented public interfaces
+- Organizational-only libraries (grouping without purpose) are prohibited
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+**Rationale**: Library-first architecture enforces modularity, enables parallel development, simplifies testing, and ensures components remain reusable and maintainable as the system grows.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### II. Test-First Development (NON-NEGOTIABLE)
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+Test-Driven Development (TDD) is mandatory for all production code.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+**Requirements**:
+- Tests MUST be written before implementation code
+- Tests MUST be reviewed and approved by stakeholders before implementation begins
+- Tests MUST fail initially (red state)
+- Implementation proceeds only after test approval and verification of failure
+- Red-Green-Refactor cycle MUST be strictly followed
+- No code may be merged without passing tests
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**Rationale**: TDD ensures requirements are testable, implementation stays focused, regressions are caught immediately, and code remains maintainable. The approval gate ensures tests validate actual requirements, not implementation assumptions.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### III. Observability
+
+All components MUST be debuggable and observable in production environments.
+
+**Requirements**:
+- Text-based I/O MUST be used where feasible (stdin/args → stdout, errors → stderr)
+- Structured logging MUST be implemented for all significant operations
+- Error messages MUST include actionable context (what failed, why, how to fix)
+- Performance-critical paths MUST emit timing metrics
+- State transitions MUST be logged at appropriate levels
+
+**Rationale**: Text I/O and structured logging enable efficient debugging, troubleshooting, and operational visibility without requiring specialized tools or intrusive instrumentation.
+
+## Development Standards
+
+### Versioning & Breaking Changes
+
+All libraries and APIs MUST follow semantic versioning (MAJOR.MINOR.PATCH).
+
+**Requirements**:
+- MAJOR version MUST increment for backward-incompatible changes
+- MINOR version MUST increment for backward-compatible feature additions
+- PATCH version MUST increment for backward-compatible bug fixes
+- Breaking changes MUST include migration guides and deprecation warnings
+- Deprecation period MUST be at least one MINOR version before removal
+
+**Rationale**: Predictable versioning enables safe dependency management, prevents unexpected breakage, and gives consumers time to migrate.
+
+### Performance Standards
+
+Performance requirements MUST be defined and validated for production features.
+
+**Requirements**:
+- Latency-critical operations MUST have documented p95/p99 targets
+- Resource limits MUST be defined (memory, CPU, disk, network)
+- Performance degradation MUST be caught in testing before production
+- Performance tests MUST run in CI for critical paths
+
+**Rationale**: Proactive performance management prevents production incidents, ensures user experience quality, and makes resource planning predictable.
+
+### Simplicity (YAGNI)
+
+Simplicity MUST be prioritized over speculative features or premature optimization.
+
+**Requirements**:
+- Features MUST solve current, validated requirements only
+- Abstractions MUST be justified by concrete reuse (≥2 use cases)
+- Configuration MUST be minimized (favor convention over configuration)
+- Dependencies MUST be justified by significant value
+- Code complexity MUST be justified in writing when unavoidable
+
+**Rationale**: YAGNI principles reduce cognitive load, minimize maintenance burden, accelerate development, and prevent over-engineering that rarely pays off.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### Amendment Process
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+This constitution supersedes all other development practices and standards.
+
+**Requirements**:
+- Amendments MUST be documented with rationale and impact analysis
+- Amendments MUST be approved by project maintainers
+- Breaking amendments MUST include migration plans for existing code
+- Constitution version MUST be incremented per semantic versioning rules
+- All pull requests MUST verify compliance with current constitution
+
+### Compliance & Review
+
+**Requirements**:
+- All code reviews MUST verify constitutional compliance
+- Complexity violations MUST be explicitly justified in writing
+- Templates MUST remain synchronized with constitutional requirements
+- Non-compliant code MUST NOT be merged without documented exception
+
+### Runtime Guidance
+
+During active development sessions, agents and contributors MUST reference this constitution to ensure alignment with project principles. Specific workflow commands (e.g., `/speckit.*` commands) implement these principles through structured templates.
+
+**Version**: 1.0.0 | **Ratified**: 2026-01-09 | **Last Amended**: 2026-01-09

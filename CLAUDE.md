@@ -1,4 +1,4 @@
-# firstProject Development Guidelines
+# scopa-score-tracker Development Guidelines
 
 Auto-generated from all feature plans. Last updated: 2026-01-14
 

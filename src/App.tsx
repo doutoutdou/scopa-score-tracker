@@ -42,12 +42,22 @@ function App() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 min-h-screen">
-      {isPlaying ? (
-        <GamePlay gameSession={gameSession} />
-      ) : (
-        <GameSetup gameSession={gameSession} onStartPlaying={handleStartPlaying} />
-      )}
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-red-50 relative overflow-hidden">
+      {/* Background pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='5' y='30' font-size='24' fill='%23DC2626'%3E♠%3C/text%3E%3Ctext x='35' y='30' font-size='24' fill='%23DC2626'%3E♥%3C/text%3E%3Ctext x='5' y='55' font-size='24' fill='%23DC2626'%3E♣%3C/text%3E%3Ctext x='35' y='55' font-size='24' fill='%23DC2626'%3E♦%3C/text%3E%3C/svg%3E")`,
+          backgroundSize: '120px 120px',
+        }}
+      />
+      <div className="max-w-4xl mx-auto px-4 py-8 min-h-screen relative z-10">
+        {isPlaying ? (
+          <GamePlay gameSession={gameSession} />
+        ) : (
+          <GameSetup gameSession={gameSession} onStartPlaying={handleStartPlaying} />
+        )}
+      </div>
     </div>
   );
 }
